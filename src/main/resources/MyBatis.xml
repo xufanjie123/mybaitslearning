@@ -21,7 +21,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="com/test/DB/Mapper/UserMapper.xml"/>
+        <!--<mapper resource="com/test/DB/Mapper/UserMapper.xml"/>-->
+        <!--<mapper resource="com/test/DB/Mapper/UserCustomMapper.xml"/>-->
+        <package name="com.test.DB.Mapper"/>
     </mappers>
-
 </configuration>

@@ -1,6 +1,7 @@
 package com.test.Sqltest;
 
 import com.test.DB.Entity.User;
+import com.test.DB.Mapper.UserCustomMapper;
 import com.test.DB.Mapper.UserMapper;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -132,5 +133,16 @@ public class SqlTest {
         User user = new User();
         List<User> users = mapper.selectUserList(user);
         System.out.println(users);
+        sqlSession.close();
+    }
+
+    @Test
+    public void selectOrderUser() throws Exception
+    {
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        UserCustomMapper mapper = sqlSession.getMapper(UserCustomMapper.class);
+        List<UserCustomMapper> list = mapper.findOrderUser();
+        System.out.println(list);
+        sqlSession.close();
     }
 }
