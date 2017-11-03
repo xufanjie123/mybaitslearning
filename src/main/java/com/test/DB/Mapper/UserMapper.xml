@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.test.DB.Mapper.UserMapper">
+<!--<resultMap id="BaseResultMap" type="com.test.DB.Entity.User">-->
+    <!--<id column="Tid" property="Tid" jdbcType="INT"></id>-->
+    <!--<result column="Name" property="Name" jdbcType="VARCHAR"></result>-->
+    <!--<result column="ClassTid" property="ClassTid" jdbcType="INT"></result>-->
+<!--</resultMap>-->
+    <select id="findUserById" parameterType="int" resultType="com.test.DB.Entity.User">
+        SELECT * FROM USER WHERE id=#{id}
+    </select>
+
+    <select id="findUserByName" parameterType="java.lang.String" resultType="com.test.DB.Entity.User">
+        SELECT * FROM USER WHERE username LIKE '%${value}%'
+    </select>
+
+    <insert id="insertUser" parameterType="com.test.DB.Entity.User">
+        <selectKey keyProperty="id" order="AFTER" resultType="int">
+            SELECT last_insert_id()
+        </selectKey>
+        INSERT INTO USER (username,gender,birthday,address) VALUES(#{username},#{gender},#{birthday},#{address})
+    </insert>
+
+    <delete id="deleteUserById" parameterType="int">
+        DELETE FROM USER WHERE id = #{value}
+    </delete>
+
+    <update id="updateUser" parameterType="com.test.DB.Entity.User">
+        UPDATE USER SET username = #{username},gender = #{gender},birthday=#{birthday},address=#{address} WHERE id = #{id}
+    </update>
+
+    <select id="selectUserList" parameterType="com.test.DB.Entity.User" resultType="com.test.DB.Entity.User">
+        SELECT * FROM USER
+        <where>
+                <if test="username != null and username != ''">
+                  AND username LIKE "%${username}%"
+                </if>
+        </where>
+    </select>
+</mapper>
